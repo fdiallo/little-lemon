@@ -54,20 +54,20 @@ fun Onboarding(navController: NavHostController) {
 
     Scaffold(
         topBar = {
-            TopAppBar()
+            OnboardingTopAppBar()
         },
         bottomBar = {
-            BottomBar(firstName = firstName, lastName = lastName,
+            OnboardingBottomBar(firstName = firstName, lastName = lastName,
                 email = email, emailError = emailError,
                 navController = navController, ctx = ctx)
         }
     ){
-        Content(firstName, lastName, email, emailError, it)
+        OnboardingContent(firstName, lastName, email, emailError, it)
     }
 }
 
 @Composable
-fun TopAppBar() {
+fun OnboardingTopAppBar() {
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
@@ -83,7 +83,7 @@ fun TopAppBar() {
 }
 
 @Composable
-fun Content(firstName: MutableState<String>,
+fun OnboardingContent(firstName: MutableState<String>,
             lastName: MutableState<String>,
             email: MutableState<String>,
             emailError: MutableState<String?>,
@@ -172,7 +172,7 @@ fun Content(firstName: MutableState<String>,
 }
 
 @Composable
-fun BottomBar(
+fun OnboardingBottomBar(
     firstName: MutableState<String>,
     lastName: MutableState<String>,
     email: MutableState<String>,
@@ -211,7 +211,7 @@ fun BottomBar(
         ),
         modifier = Modifier.fillMaxWidth()
             .padding(start = 16.dp, bottom = 24.dp, end = 16.dp)
-            .height(54.dp),
+            .height(48.dp),
         ){
         Text(
             fontSize = 24.sp,
