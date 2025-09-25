@@ -15,3 +15,8 @@ object Profile: Destinations{
 object Onboarding: Destinations{
     override var route = "Onboarding"
 }
+
+object DishDetails: Destinations{
+    override var route = "DishDetails"
+    const val argDishId = "dishId"
+}

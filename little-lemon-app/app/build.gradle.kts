@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.plugin.serialization)
+
 }
 
 android {
@@ -16,6 +19,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+
     }
 
     buildTypes {
@@ -40,6 +45,17 @@ android {
 }
 
 dependencies {
+    implementation(libs.glide)
+    implementation(libs.androidx.compose.runtime.livedata)
+    implementation(libs.gson)
+    implementation(libs.io.ktor.client.content.negociation)
+    //annotationProcessor (com.github.bumptech.glide:compiler:1.0.0-beta08)
+
+    kapt("androidx.room:room-compiler:2.8.0")
+
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.io.ktor.serialization)
+    implementation(libs.io.ktor.client.android)
     implementation(libs.androidx.datastore)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.navigation.compose)

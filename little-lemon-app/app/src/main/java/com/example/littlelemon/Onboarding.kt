@@ -2,22 +2,25 @@ package com.example.littlelemon
 
 
 import android.content.Context
-import android.util.Patterns
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -30,7 +33,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -72,12 +77,11 @@ fun OnboardingTopAppBar() {
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
-
     ) {
         Image(
             painter = painterResource(id = R.drawable.little_lemon_logo1),
             contentDescription = "Logo",
-            modifier = Modifier.padding(vertical = 24.dp, horizontal = 80.dp)
+            modifier = Modifier.padding(vertical = 32.dp, horizontal = 80.dp)
         )
     }
 }
@@ -88,8 +92,14 @@ fun OnboardingContent(firstName: MutableState<String>,
             email: MutableState<String>,
             emailError: MutableState<String?>,
             paddingValues: PaddingValues){
+    val focusManager = LocalFocusManager.current
     Column(
         modifier = Modifier.fillMaxSize().padding(paddingValues)
+            .pointerInput(Unit){
+                detectTapGestures( onTap = {
+                    focusManager.clearFocus()
+                })
+            }
     ) {
         Text(
             modifier = Modifier
@@ -101,7 +111,6 @@ fun OnboardingContent(firstName: MutableState<String>,
             fontSize = 24.sp,
             color = Color(0xFFFFFFFF),
         )
-
         Column (
             modifier = Modifier.padding(start = 16.dp, top = 48.dp, end = 16.dp)
         ){
@@ -111,7 +120,6 @@ fun OnboardingContent(firstName: MutableState<String>,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
-
             Text(
                 text = stringResource(R.string.first_name),
                 fontSize = 16.sp,
@@ -125,8 +133,19 @@ fun OnboardingContent(firstName: MutableState<String>,
                 label = {
                     Text(stringResource(R.string.enter_your_first_name), style = TextStyle(color = Color.LightGray))
                 },
+                trailingIcon = {
+                    if (firstName.value.isNotEmpty()) {
+                        IconButton(
+                            onClick = { firstName.value = "" }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Clear,
+                                contentDescription = "Clear text"
+                            )
+                        }
+                    }
+                }
             )
-
             Text(
                 text = stringResource(R.string.last_name),
                 fontSize = 16.sp,
@@ -141,11 +160,21 @@ fun OnboardingContent(firstName: MutableState<String>,
                 label = {
                     Text(stringResource(R.string.enter_your_last_name), style = TextStyle(color = Color.LightGray))
                 },
-
+                trailingIcon = {
+                    if (lastName.value.isNotEmpty()) {
+                        IconButton(
+                            onClick = { lastName.value = "" }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Clear,
+                                contentDescription = "Clear text"
+                            )
+                        }
+                    }
+                }
                 )
-
             Text(
-                text = "Email",
+                text = stringResource(R.string.email),
                 fontSize = 16.sp,
                 modifier = Modifier.padding(top = 24.dp)
             )
@@ -164,6 +193,18 @@ fun OnboardingContent(firstName: MutableState<String>,
                 },
                 label = {
                     Text(stringResource(R.string.enter_your_email), style = TextStyle(color = Color.LightGray))
+                },
+                trailingIcon = {
+                    if (email.value.isNotEmpty()) {
+                        IconButton(
+                            onClick = { email.value = "" }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Clear,
+                                contentDescription = "Clear text"
+                            )
+                        }
+                    }
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
             )
@@ -210,19 +251,11 @@ fun OnboardingBottomBar(
             containerColor = Color(0xFFF4CE14)
         ),
         modifier = Modifier.fillMaxWidth()
-            .padding(start = 16.dp, bottom = 24.dp, end = 16.dp)
-            .height(48.dp),
+            .padding(start = 16.dp, bottom = 24.dp, end = 16.dp),
         ){
         Text(
-            fontSize = 24.sp,
+            fontSize = 16.sp,
             text = stringResource(id = R.string.register),
         )
     }
 }
-/*
-
-@Preview (showBackground = true)
-@Composable
-fun OnboardingPreview(){
-    Onboarding(navController)
-}*/

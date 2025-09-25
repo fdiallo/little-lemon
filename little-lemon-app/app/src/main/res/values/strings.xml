@@ -7,5 +7,16 @@
     <string name="first_name">First Name</string>
     <string name="enter_your_first_name">Enter your first name</string>
     <string name="enter_your_last_name">Enter your last name</string>
+    <string name="email">Email</string>
     <string name="enter_your_email">Enter your email</string>
+    <string name="chicago">Chicago</string>
+    <string name="hero_message">We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.</string>
+    <string name="little_lemon">Little Lemon</string>
+    <string name="order_for_delivery">ORDER FOR DELIVERY!</string>
+    <string name="starters">Starters</string>
+    <string name="drinks">Drinks</string>
+    <string name="desserts">Desserts</string>
+    <string name="mains">Mains</string>
+    <string name="profile_information">Profile information</string>
+
 </resources>
