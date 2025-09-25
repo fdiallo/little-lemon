@@ -1,5 +1,7 @@
 package com.example.littlelemon
 
+import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -31,10 +33,13 @@ class MainActivity : ComponentActivity() {
         Room.databaseBuilder(context = applicationContext, klass = AppDatabase::class.java, name ="menuDatabase").build()
     }
 
+    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         setContent {
+
             LittleLemonTheme {
                 val navController = rememberNavController()
                 val databaseMenu by database.menuDao().getAll().observeAsState(emptyList<MenuItemRoom>())
